@@ -41,5 +41,7 @@ for a in $AIDS; do
 done
 echo "$(date +%T) articles done ($n)" >>"$L"
 
-# sitemap + caches via CLI helpers if present; else skip
-echo "$(date +%T) GEN done; index=$([ -f "$D/index.html" ] && wc -c <"$D/index.html")b" >>"$L"
+# serve static homepage: neutralize dynamic index.php
+[ -f "$D/index.html" ] && [ -f "$D/index.php" ] && mv "$D/index.php" "$D/index.php.bak"
+cp "$D/.htaccess" "$D/_htaccess.txt" 2>/dev/null
+echo "$(date +%T) GEN done; index=$([ -f "$D/index.html" ] && wc -c <"$D/index.html")b idxphp=$([ -f "$D/index.php" ] && echo present || echo moved)" >>"$L"
