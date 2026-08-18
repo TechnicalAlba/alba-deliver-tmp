@@ -4,6 +4,7 @@ set +e
 D=/home/u133275855/domains/$DOMAIN/public_html
 L=$D/_gen.txt; : > "$L"
 rm -f "$D/default.php"
+mkdir -p "$D/data/tplcache" && chmod 777 "$D/data/tplcache"
 echo "$(date +%T) GEN(cli-autoload) $DOMAIN style=$STYLE" >>"$L"
 export D_ROOT="$D" DOMAIN STYLE
 
@@ -13,7 +14,8 @@ $_SERVER["HTTP_HOST"]=getenv("DOMAIN"); $_SERVER["SERVER_NAME"]=getenv("DOMAIN")
 $_SERVER["REQUEST_URI"]="/"; $_SERVER["SCRIPT_NAME"]="/index.php"; $_SERVER["REMOTE_ADDR"]="127.0.0.1"; $_SERVER["HTTP_USER_AGENT"]="cli";
 chdir($D);
 require $D."/system/common.inc.php";
-echo "BOOT ok basehost=".$GLOBALS["cfg_basehost"]." style=".$GLOBALS["cfg_df_style"]."\n";
+$GLOBALS["cfg_basedir"]=$D; $cfg_basedir=$D;
+echo "BOOT ok basehost=".$GLOBALS["cfg_basehost"]." style=".$GLOBALS["cfg_df_style"]." basedir=".$GLOBALS["cfg_basedir"]." tpldir=".$GLOBALS["cfg_templets_dir"]."\n";
 foreach(array("PartView","ListView","Archives") as $c) echo "class $c=".(class_exists($c)?"Y":"N")."\n";
 // homepage
 try{
