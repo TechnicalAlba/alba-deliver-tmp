@@ -5,6 +5,8 @@ D=/home/u133275855/domains/$DOMAIN/public_html
 L=$D/_gen.txt; : > "$L"
 rm -f "$D/default.php"
 mkdir -p "$D/data/tplcache" && chmod 777 "$D/data/tplcache"
+touch "$D/.htaccess"
+grep -q "DirectoryIndex index.html" "$D/.htaccess" || sed -i '1i DirectoryIndex index.html index.php' "$D/.htaccess"
 export D_ROOT="$D" DOMAIN STYLE
 echo "$(date +%T) GEN $DOMAIN style=$STYLE" >>"$L"
 
