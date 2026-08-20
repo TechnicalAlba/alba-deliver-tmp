@@ -1,5 +1,5 @@
 #!/bin/bash
-PW='Inf1nx@2026#Cuci!'
+PW='Inf1nx@2026#Cuci!'; export PW
 B=/home/u133275855/domains
 for spec in "peluang88-my.com:biz_" "12cucimy.com:biz_" "mantap88a.my:"; do
   d="${spec%%:*}"; pfx="${spec##*:}"
